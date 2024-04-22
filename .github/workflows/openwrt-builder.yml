@@ -82,8 +82,10 @@ jobs:
       id: package
       run: |
         cd openwrt
+        ls -l
         make defconfig
         make download -j8
+        ls -l
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
