@@ -5,18 +5,11 @@
 #   Blog: https://p3terx.com
 #=================================================
 
-name: Build OpenWrt
+name: OpenWrt Builder
 
-on: 
-  release:
-    types: [published]
-  push:
-    branches: 
-      - master
-#  schedule:
-#    - cron: 0 8 * * 5
-  watch:
-    types: [started]
+on:
+  repository_dispatch:
+  workflow_dispatch:
 
 jobs:
   build:
