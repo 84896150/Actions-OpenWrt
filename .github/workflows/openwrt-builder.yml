@@ -47,7 +47,8 @@ jobs:
 
     - name: Build
       run: |
-        cd openwrt
+        cd openwrt/dl
+        ls -l
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
 
