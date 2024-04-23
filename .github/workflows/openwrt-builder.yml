@@ -41,18 +41,14 @@ jobs:
       run: |
         ls -l
         cd openwrt && make download -j8 && ls -l dl
-        find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \;
+        tar -czvf myetc.tar.gz dl
+        mkdir -p /opt/images
+        pwd
+        sudo mv -f /home/runner/work/Frp-build/Frp-build/frp/myetc.tar.gz /opt/images/
 
-    - name: Build
-      run: |
-        cd openwrt/dl
-        ls -l
-        echo -e "$(nproc) thread build."
-        make -j$(nproc) V=s
-
-    - name : Upload artifact
+    - name : Upload packages
       uses: actions/upload-artifact@master
+      if: always()
       with:
-        name: OpenWrt
-        path: openwrt/dl
+        name: Frp-packages
+        path: /opt/images/
