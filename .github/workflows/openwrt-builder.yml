@@ -44,7 +44,7 @@ jobs:
         tar -czvf myetc.tar.gz dl
         mkdir -p /opt/images
         pwd
-        sudo mv -f /home/runner/work/Frp-build/Frp-build/frp/myetc.tar.gz /opt/images/
+        sudo mv -f /home/runner/work/Actions-OpenWrt/Actions-OpenWrt/openwrt/myetc.tar.gz /opt/images/
 
     - name : Upload packages
       uses: actions/upload-artifact@master
