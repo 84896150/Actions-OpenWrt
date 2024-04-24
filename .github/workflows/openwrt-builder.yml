@@ -42,7 +42,7 @@ jobs:
       run: |
         ls -l
         
-        cd openwrt && make download -j1 V=s
+        cd openwrt && make download -j8 V=s
         ls -l
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
@@ -52,9 +52,13 @@ jobs:
         cd openwrt
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
-
-    - name : Upload artifact
+        tar -czvf myetc.tar.gz bin
+        mkdir -p /opt/images
+        pwd
+        sudo mv -f /home/runner/work/Actions-OpenWrt/Actions-OpenWrt/openwrt/myetc.tar.gz /opt/images/
+    - name : Upload packages
       uses: actions/upload-artifact@master
+      if: always()
       with:
-        name: OpenWrt
-        path: openwrt/bin
+        name: Frp-packages
+        path: /opt/images/
