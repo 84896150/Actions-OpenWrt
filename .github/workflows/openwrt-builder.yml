@@ -43,7 +43,7 @@ jobs:
       run: |
         ls -l
         
-        cd openwrt && make download -j8
+        cd openwrt && make download -j8 V=s
         ls -l
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
