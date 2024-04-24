@@ -22,7 +22,7 @@ jobs:
     - name: Initialization environment
       run: |
         sudo apt-get update
-        sudo apt-get -y install g++ libncurses5-dev libncurses5-dev zlib1g-dev bison flex unzip autoconf gawk make gettext gcc binutils patch bzip2 libz-dev asciidoc subversion wget curl git libssh-dev
+        sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
 
     - name: Clone source code
       run: |
@@ -40,15 +40,19 @@ jobs:
     - name: Download package
       run: |
         ls -l
-        cd openwrt && make download -j8 && ls -l dl
-        tar -czvf myetc.tar.gz dl
-        mkdir -p /opt/images
-        pwd
-        sudo mv -f /home/runner/work/Actions-OpenWrt/Actions-OpenWrt/openwrt/myetc.tar.gz /opt/images/
+        cd openwrt && make download -j8
+        ls -l
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
 
-    - name : Upload packages
+    - name: Build
+      run: |
+        cd openwrt
+        echo -e "$(nproc) thread build."
+        make -j$(nproc) V=s
+
+    - name : Upload artifact
       uses: actions/upload-artifact@master
-      if: always()
       with:
-        name: Frp-packages
-        path: /opt/images/
+        name: OpenWrt
+        path: openwrt/bin
