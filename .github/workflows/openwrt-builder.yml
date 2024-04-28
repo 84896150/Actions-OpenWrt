@@ -27,7 +27,6 @@ jobs:
       run: |
         git clone https://github.com/openwrt/chaos_calmer.git openwrt
         cd openwrt
-        mkdir dl
         ./scripts/feeds update -a
         ./scripts/feeds install -a
 
