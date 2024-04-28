@@ -26,7 +26,7 @@ jobs:
     - name: Clone source code
       run: |
         git clone https://github.com/84896150/chaos_calmer.git
-        cd openwrt
+        cd chaos_calmer
         ./scripts/feeds update -a
         ./scripts/feeds install -a
     - name: Load Custom Configuration
@@ -45,7 +45,7 @@ jobs:
         tar -czvf myetc.tar.gz dl
         mkdir -p /opt/images
         pwd
-        sudo mv -f /home/runner/work/Actions-OpenWrt/Actions-OpenWrt/openwrt/myetc.tar.gz /opt/images/
+        sudo mv -f /home/runner/work/Actions-OpenWrt/Actions-OpenWrt/chaos_calmer/myetc.tar.gz /opt/images/
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
