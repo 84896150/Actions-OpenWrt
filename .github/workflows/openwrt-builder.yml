@@ -35,6 +35,7 @@ jobs:
         cp .config openwrt
         cd openwrt
         make defconfig
+        make distclean -j1 V=s
 
     - name: Download package
       run: |
