@@ -29,7 +29,9 @@ jobs:
         cd openwrt
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-
+        cd include
+        wget https://gitlab.labs.nic.cz/turris/openwrt/uploads/0673001b14ab1d1769604ff0ce7d8781/git-version-check-fix.patch
+        patch < git-version-check-fix.patch
     - name: Load Custom Configuration
       run: |
         cp .config openwrt
