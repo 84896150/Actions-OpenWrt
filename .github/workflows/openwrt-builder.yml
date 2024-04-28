@@ -31,8 +31,8 @@ jobs:
         ./scripts/feeds install -a
     - name: Load Custom Configuration
       run: |
+        cp .config openwrt
         cd openwrt
-        wget -O .config https://archive.openwrt.org/chaos_calmer/15.05.1/omap/generic/config.diff
         make defconfig
 
     - name: Download package
